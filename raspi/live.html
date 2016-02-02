@@ -1,0 +1,54 @@
+﻿<!DOCTYPE HTML>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<script src="https://cdn.pubnub.com/pubnub.min.js"></script>
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script>
+  $(function(){
+    var publishKey = '<your Publish Key>';
+    var subscribeKey = '<your Subscribe Key>';
+    // channel名の設定
+    var channel1 = "shutter"
+    var channel2 = "pic"
+    // PubNub初期化
+    var pubnub = PUBNUB.init({
+      publish_key   : publishKey,
+      subscribe_key : subscribeKey
+    });
+    pubnub.subscribe({
+      channel : channel2,
+      callback : function(data) {
+        var img = new Image();
+        img.src = data;
+        img.onload = function(){
+          $('#main').html(img);
+        }
+      }
+    });
+    // データの送信
+    function publish(action) {
+      var value = {'action': action};
+      pubnub.publish({
+        channel : channel1,
+        message : value,
+        callback: function(message){console.log(message);}
+      });
+    }
+    // [START]ボタンのクリックで文字列「start」を送信
+    $('#start-button').click(function(){
+      publish('start');
+    });
+    // [STOP]ボタンのクリックで文字列「stop」を送信
+      $('#stop-button').click(function(){
+        publish('stop');
+      });
+  });
+</script>
+</head>
+<body>
+  <button id="start-button">START</button>
+  <button id="stop-button">STOP</button>
+  <div id="main"></div>
+</body>
+</html>

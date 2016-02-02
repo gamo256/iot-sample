@@ -1,0 +1,47 @@
+﻿<!DOCTYPE HTML>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>音声制御テスト</title>
+<script src="https://cdn.pubnub.com/pubnub.min.js"></script>
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+</head>
+<body>
+<script>
+var publishKey = 'pub-c-d1172091-ff3a-4e21-ba44-8ccff8959af3';
+var subscribeKey = 'sub-c-c8f6cb7e-a505-11e5-a586-0619f8945a4f';
+var channel = "speech"; // channel名の設定
+
+// PubNub初期化
+  var pubnub = PUBNUB.init({
+    publish_key   : publishKey,
+    subscribe_key : subscribeKey
+  });
+
+// Web Speech APIの初期化
+var recognition = new webkitSpeechRecognition();
+recognition.continuous = true;
+recognition.lang="ja-JP"
+// 音声認識
+recognition.onresult = function(event) {
+  // 認識したテキストを取得
+  var length = event.results.length;
+  if (length > 0) {
+    var msg = event.results[length-1][0].transcript;
+    console.log(msg);
+    // 認識したテキストを送信
+    pubnub.publish({
+      channel : channel,
+      message : msg,
+      callback: function(message){
+        console.log(message);
+      }
+    });
+  }
+}
+</script>
+<form>
+<input type="button" value="音声入力開始" onclick="recognition.start()"/>
+</form>
+</body>
+</html>

@@ -1,0 +1,28 @@
+﻿<!DOCTYPE HTML>
+<html lang="ja">
+<head>
+<title>Line Chart</title>
+<script src="http://pubnub.github.io/eon/v/eon/0.0.10/eon.js"></script>
+<link type="text/css" rel="stylesheet" href="http://pubnub.github.io/eon/v/eon/0.0.10/eon.css"/>
+</head>
+<body>
+<div id="chart"></div>
+<script>
+  var pubnub =   PUBNUB.init({
+    publish_key  : '<your Publish Key>',
+    subscribe_key: '<your Subscribe Key>'
+  });
+  var channel = "temperature"; // channel名の設定
+  eon.chart({
+    channel: channel,
+    pubnub: pubnub,
+    generate: {
+      bindto: '#chart',
+      data: {
+        labels: true
+      }
+    }
+  });
+</script>
+</body>
+</html>
