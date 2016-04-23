@@ -1,3 +1,3 @@
-###ArduinoとJavaScriptではじめるIoTプログラミング サンプル
-
-###Raspberry PiとJavaScriptではじめるIoTプログラミング サンプル
+##iot-sample
+ArduinoとJavaScriptではじめるIoTプログラミング サンプル
+Raspberry PiとJavaScriptではじめるIoTプログラミング サンプル
