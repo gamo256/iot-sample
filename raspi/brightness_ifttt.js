@@ -19,8 +19,8 @@ board.on("ready", function() {
   var a = new five.Sensor({
     // PCF8591 module YL-40
     // A0:LDR(Light Dependent Resistor)
-    // A1:NC
-    // A2 Thermistor
+    // A1:Thermistor
+    // A2：NC
     // A3:Potentiometer
     pin:"A0",
     board:virtual,
