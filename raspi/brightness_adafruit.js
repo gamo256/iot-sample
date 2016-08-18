@@ -17,8 +17,8 @@ client.on('connect', function () {
     var a = new five.Sensor({
       // PCF8591 module YL-40
       // A0:LDR(Light Dependent Resistor)
-      // A1:NC
-      // A2 Thermistor
+      // A1:Thermistor
+      // A2ï¼šNC
       // A3:Potentiometer
       pin:"A0",
       board:virtual,
@@ -26,7 +26,7 @@ client.on('connect', function () {
     });
     a.on("data", function(){
       console.log(this.value / 10);
-      // Topic name(ƒgƒsƒbƒN–¼)‚ğu<user name>/feeds/<feed name>v‚ÌŒ`®‚Åw’è
+      // Topic name(ãƒˆãƒ”ãƒƒã‚¯å)ã‚’ã€Œ<user name>/feeds/<feed name>ã€ã®å½¢å¼ã§æŒ‡å®š
       client.publish('[Topic name]',String(this.value / 10));
     });
   });
